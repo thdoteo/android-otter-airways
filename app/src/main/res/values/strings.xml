@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Otter Airways</string>
+
+    <string-array name="cities">
+        <item>Monterey</item>
+        <item>Los Angeles</item>
+        <item>Seattle</item>
+    </string-array>
 </resources>

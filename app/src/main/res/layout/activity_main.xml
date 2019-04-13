@@ -34,7 +34,8 @@
         android:text="Book a flight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_button_create_account" />
+        app:layout_constraintTop_toBottomOf="@+id/main_button_create_account"
+        android:onClick="goto_flight_find"/>
 
     <Button
         android:id="@+id/main_button_cancel_flight"

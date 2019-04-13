@@ -11,6 +11,7 @@ import com.thdoteo.otterairways.Account.AccountCreateActivity;
 import com.thdoteo.otterairways.Account.AccountLoginActivity;
 import com.thdoteo.otterairways.Admin.AdminLogsActivity;
 import com.thdoteo.otterairways.Flight.Flight;
+import com.thdoteo.otterairways.Flight.FlightFindActivity;
 
 import java.util.List;
 
@@ -39,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
     public void goto_account_create(View v)
     {
         startActivity(new Intent(MainActivity.this, AccountCreateActivity.class));
+    }
+
+    public void goto_flight_find(View v)
+    {
+        startActivity(new Intent(MainActivity.this, FlightFindActivity.class));
     }
 
     public void goto_admin_logs(View v)

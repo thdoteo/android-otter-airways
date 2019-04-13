@@ -31,6 +31,12 @@ public interface AppDao {
     @Query("select * from Flight")
     List<Flight> getFlights();
 
+    @Query("select * from Flight where id=:id")
+    Flight getFlight(int id);
+
+    @Query("select * from Flight where departure=:departure and arrival=:arrival and capacity>=:seats")
+    List<Flight> findFlights(String departure, String arrival, int seats);
+
     @Insert
     void addFlight(Flight flight);
 

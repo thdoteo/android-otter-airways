@@ -71,7 +71,9 @@ public class AccountLoginActivity extends AppCompatActivity {
                     .setMessage("You were successfully logged in!")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(AccountLoginActivity.this, nextActivity));
+                            Intent intent = new Intent(AccountLoginActivity.this, nextActivity);
+                            intent.putExtras(getIntent().getExtras());
+                            startActivity(intent);
                         }
                     })
                     .show();
