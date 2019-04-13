@@ -1,5 +1,8 @@
 package com.thdoteo.otterairways.Admin;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.thdoteo.otterairways.Account.AccountCreateActivity;
 import com.thdoteo.otterairways.AppRoom;
 import com.thdoteo.otterairways.MainActivity;
 import com.thdoteo.otterairways.R;
@@ -29,9 +33,9 @@ public class AdminLogsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_logs);
 
-        setTitle("Admin Logs");
+        setTitle("Logs");
 
-        // show logs in list
+        // Show logs in list
         RecyclerView rv = findViewById(R.id.admin_logs_list);
         rv.setLayoutManager(new LinearLayoutManager(this));
         logsAdapter = new LogsAdapter();
@@ -40,7 +44,21 @@ public class AdminLogsActivity extends AppCompatActivity {
 
     public void goto_admin_flight(View v)
     {
-        // go to new activity
+        new AlertDialog.Builder(this)
+                .setTitle("Do you want to add a flight?")
+                .setMessage("If you click yes you will be able to add a new flight. Clicking no will redirect you to the main menu.")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(AdminLogsActivity.this, AdminAddFlightActivity.class));
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(AdminLogsActivity.this, MainActivity.class));
+                    }
+                })
+                .show();
     }
 
 
