@@ -5,5 +5,5 @@ Homework #7 made as part of the course Software design (CST338).
 
 ## To-Do
 
-- Make screenshots and submit
-- Improve UX/UI (Optional)
+- Fix: Show reservation number on confirmation and in logs
+- Re-submit with new screenshots
