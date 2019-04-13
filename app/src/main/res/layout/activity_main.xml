@@ -49,7 +49,8 @@
         android:text="Cancel a reservation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_button_book_flight" />
+        app:layout_constraintTop_toBottomOf="@+id/main_button_book_flight"
+        android:onClick="goto_reservations_cancel"/>
 
     <Button
         android:id="@+id/main_button_manage_system"

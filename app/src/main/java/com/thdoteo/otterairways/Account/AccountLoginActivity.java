@@ -52,7 +52,7 @@ public class AccountLoginActivity extends AppCompatActivity {
     {
         // Get user inputs
         TextView nameTV = findViewById(R.id.account_login_name);
-        String name = nameTV.getText().toString();
+        final String name = nameTV.getText().toString();
         TextView passwordTV = findViewById(R.id.account_login_password);
         String password = passwordTV.getText().toString();
 
@@ -73,6 +73,7 @@ public class AccountLoginActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(AccountLoginActivity.this, nextActivity);
                             intent.putExtras(getIntent().getExtras());
+                            intent.putExtra("ACCOUNT", name);
                             startActivity(intent);
                         }
                     })

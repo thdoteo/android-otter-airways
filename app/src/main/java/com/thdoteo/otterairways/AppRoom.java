@@ -7,9 +7,10 @@ import android.content.Context;
 
 import com.thdoteo.otterairways.Account.Account;
 import com.thdoteo.otterairways.Flight.Flight;
+import com.thdoteo.otterairways.Reservation.Reservation;
 import com.thdoteo.otterairways.Transaction.Transaction;
 
-@Database(entities = {Account.class, Transaction.class, Flight.class}, version = 1)
+@Database(entities = {Account.class, Transaction.class, Flight.class, Reservation.class}, version = 1)
 public abstract class AppRoom extends RoomDatabase {
 
     private static AppRoom instance;

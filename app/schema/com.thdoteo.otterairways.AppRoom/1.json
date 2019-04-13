@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d6a3c1a00d6bdbd290cc8c87fc7c27e5",
+    "identityHash": "2d8dc67a669cf3408ac86c0accb3ca9b",
     "entities": [
       {
         "tableName": "Account",
@@ -129,11 +129,55 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Reservation",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account_id` INTEGER NOT NULL, `flight_id` INTEGER NOT NULL, `seats` INTEGER NOT NULL, `price` REAL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "account_id",
+            "columnName": "account_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "flight_id",
+            "columnName": "flight_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "seats",
+            "columnName": "seats",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "price",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"d6a3c1a00d6bdbd290cc8c87fc7c27e5\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"2d8dc67a669cf3408ac86c0accb3ca9b\")"
     ]
   }
 }

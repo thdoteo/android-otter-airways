@@ -49,6 +49,7 @@ public class FlightChooseActivity extends AppCompatActivity {
         Intent intent = new Intent(FlightChooseActivity.this, AccountLoginActivity.class);
         intent.putExtra("NEXT_ACTIVITY", FlightConfirmActivity.class);
         intent.putExtra("FLIGHT_ID", selectedFlight.getId());
+        intent.putExtra("SEATS", getIntent().getIntExtra("SEATS", 1));
         startActivity(intent);
     }
 

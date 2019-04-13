@@ -1,17 +1,21 @@
 package com.thdoteo.otterairways;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import com.thdoteo.otterairways.Account.Account;
 import com.thdoteo.otterairways.Flight.Flight;
+import com.thdoteo.otterairways.Reservation.Reservation;
 import com.thdoteo.otterairways.Transaction.Transaction;
 
 import java.util.List;
 
 @Dao
 public interface AppDao {
+
+    // Accounts
 
     @Query("select * from Account")
     List<Account> getAccounts();
@@ -22,11 +26,15 @@ public interface AppDao {
     @Insert
     void addAccount(Account account);
 
+    // Transactions
+
     @Query("select * from `Transaction`")
     List<Transaction> getTransactions();
 
     @Insert
     void addTransaction(Transaction transaction);
+
+    // Flights
 
     @Query("select * from Flight")
     List<Flight> getFlights();
@@ -39,5 +47,19 @@ public interface AppDao {
 
     @Insert
     void addFlight(Flight flight);
+
+    @Delete
+    void deleteFlight(Flight flight);
+
+    // Reservations
+
+    @Query("select * from Reservation where account_id=:account_id")
+    List<Reservation> getReservationsOfAccount(int account_id);
+
+    @Insert
+    void addReservation(Reservation reservation);
+
+    @Delete
+    void deleteReservation(Reservation reservation);
 
 }
