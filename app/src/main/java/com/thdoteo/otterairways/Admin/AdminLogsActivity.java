@@ -16,6 +16,7 @@ import com.thdoteo.otterairways.Account.AccountCreateActivity;
 import com.thdoteo.otterairways.AppRoom;
 import com.thdoteo.otterairways.MainActivity;
 import com.thdoteo.otterairways.R;
+import com.thdoteo.otterairways.Reservation.ReservationCancelActivity;
 import com.thdoteo.otterairways.Transaction.Transaction;
 
 import java.text.ParseException;
@@ -27,6 +28,7 @@ public class AdminLogsActivity extends AppCompatActivity {
 
     private LogsAdapter logsAdapter;
     private List<Transaction> logs;
+    private List<Transaction> filteredLogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,22 @@ public class AdminLogsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_logs);
 
         setTitle("Logs");
+
+        // Get logs
+        filteredLogs = AppRoom.getDatabase(AdminLogsActivity.this).dao().getTransactions();
+        if (filteredLogs.size() == 0)
+        {
+            // Show error dialog and go to next admin activity
+            new AlertDialog.Builder(this)
+                    .setTitle("No logs")
+                    .setMessage("There is no logs at the moment.")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(AdminLogsActivity.this, AdminAddFlightActivity.class));
+                        }
+                    })
+                    .show();
+        }
 
         // Show logs in list
         RecyclerView rv = findViewById(R.id.admin_logs_list);
@@ -68,7 +86,7 @@ public class AdminLogsActivity extends AppCompatActivity {
     private class LogsAdapter extends RecyclerView.Adapter<ItemHolder> {
 
         public LogsAdapter(){
-            logs = AppRoom.getDatabase(AdminLogsActivity.this).dao().getTransactions();
+            logs = filteredLogs;
         }
 
         @Override

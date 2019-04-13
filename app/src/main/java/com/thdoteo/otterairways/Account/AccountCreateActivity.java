@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.thdoteo.otterairways.AppRoom;
@@ -110,10 +111,25 @@ public class AccountCreateActivity extends AppCompatActivity {
         {
             if (hasAlreadyFailed)
             {
-                startActivity(new Intent(AccountCreateActivity.this, MainActivity.class));
+                // Show error message and redirect to main menu
+                new AlertDialog.Builder(this)
+                        .setTitle("Error")
+                        .setMessage("An error occurred.")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(AccountCreateActivity.this, MainActivity.class));
+                            }
+                        })
+                        .show();
             }
             else
             {
+                // Reset text input
+                nameTV.setText("");
+                passwordTV.setText("");
+
+                // Show error message
                 hasAlreadyFailed = true;
                 String message = "";
                 if (!test1)

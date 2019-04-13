@@ -26,6 +26,19 @@ public class AdminAddFlightActivity extends AppCompatActivity {
         setTitle("Add a flight");
     }
 
+    private void invalidData()
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("Invalid data")
+                .setMessage("The entered flight data are invalid.")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(AdminAddFlightActivity.this, MainActivity.class));
+                    }
+                })
+                .show();
+    }
+
     public void flight_add(View v)
     {
         // Get user input
@@ -39,8 +52,24 @@ public class AdminAddFlightActivity extends AppCompatActivity {
         String departure = departureET.getText().toString();
         String arrival = arrivalET.getText().toString();
         String time = timeET.getText().toString();
-        Double price = Double.parseDouble(priceET.getText().toString());
-        int capacity = Integer.parseInt(capacityET.getText().toString());
+        Double price = -1.0;
+        int capacity = -1;
+
+        // Test data
+        try {
+            price = Double.parseDouble(priceET.getText().toString());
+            capacity = Integer.parseInt(capacityET.getText().toString());
+        }
+        catch (NumberFormatException e)
+        {
+            invalidData();
+        }
+        Flight preExistingFlight = AppRoom.getDatabase(this).dao().getFlightByNumber(number);
+        if ((time.isEmpty() || departure.isEmpty() || arrival.isEmpty() || number.isEmpty()) || preExistingFlight != null)
+        {
+            invalidData();
+        }
+
 
         final Flight flight = new Flight(number, departure, arrival, time, capacity, price);
 

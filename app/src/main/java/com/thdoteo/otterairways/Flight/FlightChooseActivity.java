@@ -1,5 +1,7 @@
 package com.thdoteo.otterairways.Flight;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.thdoteo.otterairways.Account.AccountLoginActivity;
+import com.thdoteo.otterairways.Admin.AdminAddFlightActivity;
+import com.thdoteo.otterairways.Admin.AdminLogsActivity;
 import com.thdoteo.otterairways.AppRoom;
+import com.thdoteo.otterairways.MainActivity;
 import com.thdoteo.otterairways.R;
 
 import java.util.List;
@@ -37,6 +42,20 @@ public class FlightChooseActivity extends AppCompatActivity {
         String a = getIntent().getStringExtra("ARRIVAL");
         int s = getIntent().getIntExtra("SEATS", 1);
         filteredFlights = AppRoom.getDatabase(this).dao().findFlights(d, a, s);
+
+        if (filteredFlights.size() == 0)
+        {
+            // Show error dialog and go to main menu
+            new AlertDialog.Builder(this)
+                    .setTitle("No flights")
+                    .setMessage("There is no flights matching your request.")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(FlightChooseActivity.this, MainActivity.class));
+                        }
+                    })
+                    .show();
+        }
 
         RecyclerView rv = findViewById(R.id.flight_choose_list);
         rv.setLayoutManager(new LinearLayoutManager(this));

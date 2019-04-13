@@ -21,6 +21,18 @@
         app:layout_constraintStart_toStartOf="parent"
         android:onClick="reservation_cancel"/>
 
+    <Button
+        android:id="@+id/reservation_cancel_quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="reservation_quit"
+        android:text="Quit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/reservation_cancel_list"
         android:layout_width="match_parent"

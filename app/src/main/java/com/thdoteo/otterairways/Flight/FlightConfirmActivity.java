@@ -8,10 +8,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.thdoteo.otterairways.Account.Account;
+import com.thdoteo.otterairways.Account.AccountCreateActivity;
 import com.thdoteo.otterairways.AppRoom;
 import com.thdoteo.otterairways.MainActivity;
 import com.thdoteo.otterairways.R;
 import com.thdoteo.otterairways.Reservation.Reservation;
+import com.thdoteo.otterairways.Transaction.Transaction;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Date;
 
 public class FlightConfirmActivity extends AppCompatActivity {
 
@@ -55,11 +62,22 @@ public class FlightConfirmActivity extends AppCompatActivity {
         priceTV.setText("Price: " + seats * flight.getPrice());
     }
 
-    public void flight_confirm(View v)
-    {
+    public void flight_confirm(View v) throws JSONException {
         // Create the reservation
         Reservation reservation = new Reservation(account.getId(), flight.getId(), seats, seats * flight.getPrice());
         AppRoom.getDatabase(this).dao().addReservation(reservation);
+
+        // Create transaction
+        JSONObject transactionData = new JSONObject();
+        transactionData.put("username", account.getName());
+        transactionData.put("reservation_id", reservation.getId());
+        transactionData.put("departure", flight.getDeparture());
+        transactionData.put("arrival", flight.getArrival());
+        transactionData.put("time", flight.getDeparture_at());
+        transactionData.put("seats", seats);
+        transactionData.put("price", seats * flight.getPrice());
+        Transaction transaction = new Transaction("Reserve seat", transactionData.toString(), new Date().toString());
+        AppRoom.getDatabase(FlightConfirmActivity.this).dao().addTransaction(transaction);
 
         // Go to main menu
         startActivity(new Intent(FlightConfirmActivity.this, MainActivity.class));
