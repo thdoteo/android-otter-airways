@@ -51,16 +51,16 @@ public interface AppDao {
     @Insert
     void addFlight(Flight flight);
 
-    @Delete
-    void deleteFlight(Flight flight);
-
     // Reservations
 
     @Query("select * from Reservation where account_id=:account_id")
     List<Reservation> getReservationsOfAccount(int account_id);
 
+    @Query("select * from Reservation order by id DESC LIMIT 1")
+    int countReservations();
+
     @Insert
-    void addReservation(Reservation reservation);
+    long addReservation(Reservation reservation);
 
     @Delete
     void deleteReservation(Reservation reservation);

@@ -31,7 +31,13 @@ public class AccountLoginActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         nextActivity = (Class<Activity>)extras.getSerializable("NEXT_ACTIVITY");
 
-        setTitle("Login to " + nextActivity.getSimpleName().replace("Activity", ""));
+        setTitle(getActivityTitle(nextActivity.getSimpleName()));
+    }
+
+    private String getActivityTitle(String name)
+    {
+        String result = name.replace("Activity", "").replaceAll("([^_])([A-Z])", "$1 $2");
+        return "Login to " + result;
     }
 
     private boolean isValidLogin(String name, String password)

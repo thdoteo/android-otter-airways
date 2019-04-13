@@ -109,46 +109,39 @@ public class AccountCreateActivity extends AppCompatActivity {
         }
         else
         {
-            if (hasAlreadyFailed)
+            // Show error message
+            String message = "";
+            if (!test1)
             {
-                // Show error message and redirect to main menu
-                new AlertDialog.Builder(this)
-                        .setTitle("Error")
-                        .setMessage("An error occurred.")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                startActivity(new Intent(AccountCreateActivity.this, MainActivity.class));
-                            }
-                        })
-                        .show();
+                message = "The username and/or password are not in the correct format.";
             }
             else
             {
-                // Show error message
-                hasAlreadyFailed = true;
-                String message = "";
-                if (!test1)
-                {
-                    message = "The username and/or password are not in the correct format.";
-                }
-                else
-                {
-                    message = "The username is already taken.";
-                }
-                new AlertDialog.Builder(this)
-                        .setTitle("Invalid data")
-                        .setMessage(message)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Reset text input
-                                nameTV.setText("");
-                                passwordTV.setText("");
-                            }
-                        })
-                        .show();
+                message = "The username is already taken.";
             }
+            if (hasAlreadyFailed)
+            {
+                message = message.concat(" You will go back to the main menu.");
+            }
+            new AlertDialog.Builder(this)
+                    .setTitle("Invalid data")
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (hasAlreadyFailed)
+                            {
+                                startActivity(new Intent(AccountCreateActivity.this, MainActivity.class));
+                            }
+
+                            // Reset text input
+                            nameTV.setText("");
+                            passwordTV.setText("");
+
+                            hasAlreadyFailed = true;
+                        }
+                    })
+                    .show();
         }
 
     }

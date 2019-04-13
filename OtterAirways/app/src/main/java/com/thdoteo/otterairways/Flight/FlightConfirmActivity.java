@@ -43,6 +43,10 @@ public class FlightConfirmActivity extends AppCompatActivity {
         seats = getIntent().getIntExtra("SEATS", 1);
 
         // Show information on UI
+        int nextId = AppRoom.getDatabase(this).dao().countReservations() + 1;
+        TextView reservationTV = findViewById(R.id.flight_confirm_reservation);
+        reservationTV.setText("Reservation: " + nextId);
+
         TextView usernameTV = findViewById(R.id.flight_confirm_username);
         usernameTV.setText("Name: " + username);
 
@@ -64,15 +68,14 @@ public class FlightConfirmActivity extends AppCompatActivity {
 
     public void flight_confirm(View v) throws JSONException {
         // Create the reservation
-        Log.d("RESERVATION", "with id flight " + flight.getId());
         Reservation reservation = new Reservation(account.getId(), flight.getId(), seats, seats * flight.getPrice());
-        Log.d("RESERVATION", "with id flight " + reservation.getFlight_id());
-        AppRoom.getDatabase(this).dao().addReservation(reservation);
+        long id = AppRoom.getDatabase(this).dao().addReservation(reservation);
 
         // Create transaction
         JSONObject transactionData = new JSONObject();
         transactionData.put("username", account.getName());
-        transactionData.put("flight", flight.getNumber());
+        transactionData.put("reservation_id", id);
+        transactionData.put("flight_number", flight.getNumber());
         transactionData.put("departure", flight.getDeparture());
         transactionData.put("arrival", flight.getArrival());
         transactionData.put("time", flight.getDeparture_at());
